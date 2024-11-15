@@ -33,6 +33,7 @@ class MainMenuScene(Scene):
         return super().update(task)
     
     def start_game(self):
+        if self.game.paused: self.game.paused = False
         self.game.scene_manager.change_scene(self.game.game_scene)
 
     def exit_game(self):

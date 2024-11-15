@@ -1,0 +1,13 @@
+def accept_inputs(self):
+    self.accept("w", self.handle_input, ["forward", True])
+    self.accept("w-up", self.handle_input, ["forward", False])
+    self.accept("s", self.handle_input, ["backward", True])
+    self.accept("s-up", self.handle_input, ["backward", False])
+    self.accept("a", self.handle_input, ["left", True])
+    self.accept("a-up", self.handle_input, ["left", False])
+    self.accept("d", self.handle_input, ["right", True])
+    self.accept("d-up", self.handle_input, ["right", False])        
+    self.accept("enter", self.handle_input, ["enter", True])
+    self.accept("enter-up", self.handle_input, ["enter", False])
+    self.accept("escape", self.handle_input, ["esc", True])
+    self.accept("escape-up", self.handle_input, ["esc", False])
