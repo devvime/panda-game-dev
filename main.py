@@ -1,4 +1,4 @@
-from panda3d.core import loadPrcFile
+from panda3d.core import loadPrcFile, CollisionTraverser, CollisionHandlerPusher
 loadPrcFile('config/config.prc')
 from direct.showbase.ShowBase import ShowBase
 from core.scene_manager import SceneManager
@@ -11,9 +11,7 @@ from scenes.gameplay import GameScene
 class Game(ShowBase):
     def __init__(self):
         super().__init__()
-        
-        self.paused = False
-        
+                
         self.scene_manager = SceneManager(self)
         
         # init scene instances

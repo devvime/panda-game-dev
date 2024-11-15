@@ -1,4 +1,4 @@
-from panda3d.core import NodePath
+from panda3d.core import Vec3, NodePath, CollisionNode, CollisionSphere, CollisionHandlerPusher
 from direct.actor.Actor import Actor
 
 class GameObject:
@@ -16,16 +16,24 @@ class GameObject:
         self.node.setPos(*position)
         self.node.setScale(scale)
         
-        if isinstance(self.model, Actor):
-            self.animations = {}
-        else:
-            self.animations = None
+        self.collision_node = None
+        self.collision_handler = None
 
-    def set_position(self, x, y, z):
-        self.node.setPos(x, y, z)
+    def set_position(self, position: Vec3):
+        self.node.setPos(position)
+        
+    def set_rotation(self, rotation: Vec3):
+        self.node.setHpr(rotation)
 
     def update(self, task):
         pass
 
     def destroy(self):
         self.node.removeNode()
+        
+    def add_collider(self, shape, tag):
+        self.collision_node = CollisionNode(f"{tag}_collider")
+        self.collision_node.addSolid(shape)
+        collider_path = self.node.attachNewNode(self.collision_node)
+        collider_path.setTag("type", tag)
+        return collider_path

@@ -6,3 +6,6 @@ class Scenery(GameObject):
 
     def update(self, task):
         return super().update(task)
+    
+    def handle_collision(self, other):
+        print(f"Scenery collision in {other}")
