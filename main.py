@@ -1,4 +1,4 @@
-from panda3d.core import loadPrcFile, CollisionTraverser, CollisionHandlerPusher
+from panda3d.core import loadPrcFile
 loadPrcFile('config/config.prc')
 from direct.showbase.ShowBase import ShowBase
 from core.scene_manager import SceneManager

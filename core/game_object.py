@@ -1,4 +1,5 @@
 from panda3d.core import Vec3, NodePath
+from panda3d.bullet import BulletRigidBodyNode
 from direct.actor.Actor import Actor
 
 class GameObject:
@@ -15,6 +16,9 @@ class GameObject:
         
         self.node.setPos(*position)
         self.node.setScale(scale)
+        
+        self.physics_node = None
+        self.shape = None 
 
     def set_position(self, position: Vec3):
         self.node.setPos(position)
@@ -27,3 +31,26 @@ class GameObject:
 
     def destroy(self):
         self.node.removeNode()
+        self.model.removeNode()
+        self.np.removeNode()
+        
+    def add_rigid_body(self, shape, mass=0):
+        self.shape = shape
+        self.physics_node = BulletRigidBodyNode(f"{self.node.getName()}_physics")
+        self.physics_node.addShape(shape)
+        self.physics_node.setMass(mass)
+
+        self.np = render.attachNewNode(self.physics_node)
+        self.np.setPos(self.node.getPos())
+        self.model.reparentTo(self.np)
+        self.model.setZ(-self.np.getZ()/1.6)
+
+        return self.np
+
+    def add_to_physics_world(self, physics_world):
+        if self.physics_node:
+            physics_world.attachRigidBody(self.physics_node)
+
+    def remove_from_physics_world(self, physics_world):
+        if self.physics_node:
+            physics_world.removeRigidBody(self.physics_node)
