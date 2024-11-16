@@ -9,6 +9,3 @@ class Enemy(GameObject):
         self.health -= amount
         if self.health <= 0:
             self.destroy()
-            
-    def handle_collision(self, other):
-        print(f"Enemy collision in {other}")

@@ -13,6 +13,3 @@ class Player(GameObject):
 
     def update(self, task):
         return super().update(task)
-    
-    def handle_collision(self, other):
-        print(f"Player collision in {other}")
